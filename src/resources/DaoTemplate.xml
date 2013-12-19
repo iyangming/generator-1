@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="GBK"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="#<daoPackage>.#<daoName>">
+<resultMap id="BaseResultMap" type="#<modelPackage>.#<modelName>">
+#<resultMapContent>
+	</resultMap>
+	<select id="findById" resultMap="BaseResultMap" parameterType="java.io.Serializable">
+		select #<fields>
+		from #<tableName>
+		where
+		#<keyField> = #{#<key>}
+	</select>
+
+	<select id="findAll" resultMap="BaseResultMap">
+		select #<fields>
+		from #<tableName>
+	</select>
+
+	<delete id="delete" parameterType="java.io.Serializable">
+		delete from #<tableName>
+		where
+		#<keyField> = #{#<key>}
+	</delete>
+
+	<delete id="deleteAll">
+		delete from #<tableName>
+	</delete>
+
+	<insert id="create" parameterType="#<modelPackage>.#<modelName>">
+		<selectKey resultType="String" keyProperty="#<key>" order="BEFORE">
+			SELECT #<sequenceName>.NEXTVAL  #<keyField> FROM DUAL
+		</selectKey>
+
+		insert into #<tableName> (#<fields>)
+		values (
+#<insertContent>
+		)
+	</insert>
+
+	<update id="update" parameterType="#<modelPackage>.#<modelName>">
+		update #<tableName>
+		set
+#<updateContent>
+		where
+		#<keyField> = #{#<key>}
+	</update>
+
+	<!--codegen -->
+
+</mapper>

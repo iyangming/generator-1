@@ -1,0 +1,29 @@
+package #<daoPackage>;
+
+import java.io.Serializable;
+import java.math.BigDecimal;
+import java.sql.Blob;
+import java.sql.Clob;
+import java.sql.Timestamp;
+import java.util.Date;
+import java.util.List;
+
+import #<modelPackage>.#<modelName>;
+
+/** #<tableComment>(#<tableName>) **/
+public interface #<daoName> {
+
+	public #<modelName> findById(Serializable id);
+
+	public List<#<modelName>> findAll();
+
+	public void create(#<modelName> t);
+
+	public void update(#<modelName> t);
+
+	public void delete(Serializable id);
+
+	public void deleteAll();
+
+	/** codegen **/
+}

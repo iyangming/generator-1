@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="generator" basedir="." default="generrate">
+	<!-- 设置全局变量 -->
+	<property name="src" value="src" />
+	<property name="classes" value="build/classes" />
+	<property name="dist" value="dist" />
+	<property name="project.name" value="Generator" />
+	<property name="project.version" value="1.0" />
+	<property name="classes.encode" value="UTF-8" />
+	<property name="lib" value="lib" />
+	<property name="resources.dir" location="${src}/resources" />
+	<path id="classpath">
+		<fileset dir="${lib}">
+			<include name="**/*.jar" />
+		</fileset>
+	</path>
+	<path id="package.dir">
+		<fileset dir="${dist}/">
+			<include name="Generator.jar" />
+		</fileset>
+	</path>
+	<!-- Create the time stamp -->
+	<target name="timestamp">
+		<tstamp />
+	</target>
+	<!--delete the distribution directory -->
+	<target name="clean">
+		<delete dir="${dist}" />
+	</target>
+	<!--create the distribution directory -->
+	<target name="init">
+		<mkdir dir="${dist}" />
+	</target>
+	<!-- 编译源文件 -->
+	<target name="compile" depends="timestamp,clean,init">
+		<echo message="start building Generator" />
+		<delete dir="${classes}" />
+		<mkdir dir="${classes}" />
+		<javac deprecation="on" debug="on" encoding="${classes.encode}" srcdir="${src}" destdir="${classes}" classpathref="classpath" includeAntRuntime="false" />
+		<!-- copy config files -->
+		<copy todir="${classes}">
+			<fileset dir="${resources.dir}" includes="**/*.properties,**/*.xml,**/*.xls" />
+		</copy>
+	</target>
+	<target name="generrate" depends="compile">
+		<echo message="generate code path [${dist}]" />
+		<java classname="com.cary.marker.toolkit.Generator" fork="true" failonerror="true">
+			<classpath path="${classes}" />
+			<classpath refid="classpath" />
+		</java>
+		<echo message="generate successful" />
+	</target>
+	<!--执行jar -->
+	<target name="packageRun">
+		<java classname="com.cary.marker.toolkit.Generator" classpathref="package.dir">
+			<classpath refid="classpath" />
+			<!--<arg value="123" /> -->
+		</java>
+	</target>
+	<!-- 导出jar文件 -->
+	<target name="package" depends="compile">
+		<!-- Put everything in ${classes} into the MyProject-${DSTAMP}.jar file -->
+		<jar jarfile="${dist}/${project.name}.jar" basedir="${classes}" />
+	</target>
+</project>

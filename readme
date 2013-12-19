@@ -1,0 +1,2 @@
+1.在src/resources中参照 table-templete.xls中定义表名
+2.修改jdbc.properties中的配置文件
