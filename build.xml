@@ -4,7 +4,7 @@
 	<property name="src" value="src" />
 	<property name="classes" value="build/classes" />
 	<property name="dist" value="dist" />
-	<property name="project.name" value="Generator" />
+	<property name="project.name" value="generator" />
 	<property name="project.version" value="1.0" />
 	<property name="classes.encode" value="UTF-8" />
 	<property name="lib" value="lib" />
@@ -16,7 +16,7 @@
 	</path>
 	<path id="package.dir">
 		<fileset dir="${dist}/">
-			<include name="Generator.jar" />
+			<include name="generator.jar" />
 		</fileset>
 	</path>
 	<!-- Create the time stamp -->
@@ -33,7 +33,7 @@
 	</target>
 	<!-- 编译源文件 -->
 	<target name="compile" depends="timestamp,clean,init">
-		<echo message="start building Generator" />
+		<echo message="start building generator" />
 		<delete dir="${classes}" />
 		<mkdir dir="${classes}" />
 		<javac deprecation="on" debug="on" encoding="${classes.encode}" srcdir="${src}" destdir="${classes}" classpathref="classpath" includeAntRuntime="false" />
@@ -42,7 +42,7 @@
 			<fileset dir="${resources.dir}" includes="**/*.properties,**/*.xml,**/*.xls" />
 		</copy>
 	</target>
-	<target name="generrate" depends="compile">
+	<target name="generate" depends="compile">
 		<echo message="generate code path [${dist}]" />
 		<java classname="com.cary.marker.toolkit.Generator" fork="true" failonerror="true">
 			<classpath path="${classes}" />
